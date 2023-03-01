@@ -1,4 +1,4 @@
-# .NET v7.0 Blazor Server app connected to Microsoft Graph
+# .NET v6.0 Blazor Server app connected to Microsoft Graph. Used Microsoft Azure Active Directory to register Application.
 
 This is a template for a Blazor app built using .NET v7.0 that connects to Microsoft Graph.
 
@@ -68,65 +68,3 @@ Make note of the **secret's value** as you'll use it in the next step. Also, nav
   ```dotnetcli
   dotnet run
   ```
-
-In your browser, navigate to `https://localhost:5001` , and log in using an Azure AD user account to see the app running.
-
-After the login, you'll see your email address on the panel of your app:
-
-![Blazor Server App](/templates/dotnet-blazor-server-app-microsoft-graph/blazorServerApp.png)
-
-Navigate to *Pages* folder in your app, and then *ShowProfile.razor* page. Observe the Microsoft Graph API request in the code to retrieve user email:
-
-```csharp
-
-@page "/showprofile"
-
-@using Microsoft.Identity.Web
-@using Microsoft.Graph
-@inject Microsoft.Graph.GraphServiceClient GraphServiceClient
-@inject MicrosoftIdentityConsentAndConditionalAccessHandler ConsentHandler
-
-<h1>Me</h1>
-
-<p>This component demonstrates fetching data from a service.</p>
-
-@if (user == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table table-striped table-condensed" style="font-family: monospace">
-        <tr>
-            <th>Property</th>
-            <th>Value</th>
-        </tr>
-        <tr>
-            <td>Name</td>
-            //user profile information is shown in the UI
-            <td>@user.DisplayName</td> 
-        </tr>
-    </table>
-}
-
-@code {
-    User? user;
-
-    protected override async Task OnInitializedAsync()
-    {
-        try
-        {    //Microsoft Graph API request to retrieve user profile
-            user = await GraphServiceClient.Me.Request().GetAsync(); 
-        }
-        catch (Exception ex)
-        {
-            ConsentHandler.HandleException(ex);
-        }
-    }
-}
-```
-
-## Reference
-
-* [Tutorial: Create a Blazor Server app that uses the Microsoft identity platform for authentication](https://learn.microsoft.com/azure/active-directory/develop/tutorial-blazor-server)
-* [Quickstart: Register an application with the Microsoft identity platform](https://learn.microsoft.com/azure/active-directory/develop/quickstart-register-app)
