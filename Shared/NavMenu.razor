@@ -1,4 +1,4 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@*<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">DemoBlazorGraphAPI</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -25,15 +25,29 @@
             </NavLink>
         </div>
     </nav>
-</div>
+</div>*@
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="home" style="color:white"><h3>Home</h3></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="showcalendar" style="color:white">Show Calender</a>
+                    <a class="nav-link" href="showemail" style="color:white">Show Emails</a>
+                </div>
+            </ul>
+            <form class="d-flex">
+                <LoginDisplay/>
+            </form>
+        </div>
+    </div>
+</nav>
+
 
 @code {
-    private bool collapseNavMenu = true;
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
 }
