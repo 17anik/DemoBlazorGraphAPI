@@ -1,0 +1,47 @@
+﻿@page "/showemail"
+
+@using DemoBlazorGraphAPI.Graph;
+@using Microsoft.Graph
+
+@inject GraphEmailClient emailClient; 
+
+<h1>Email</h1>
+
+<p>This component demonstrates fetching emails using Graph API.</p>
+
+
+@if (Messages == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var message in Messages)
+    {
+        <div class="card" style="width: 50rem;">
+            <div class="card-body">
+                <h5 class="card-title">@message.Subject</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@message.ReceivedDateTime.GetValueOrDefault().UtcDateTime</h6>
+                <p class="card-text">@message.BodyPreview</p>
+            </div>
+        </div>
+        <br />
+    }
+    @if (!String.IsNullOrEmpty(NextLink))
+    {
+        <a asp-page="/Email" asp-route-nextlink="@NextLink" class="btn btn-primary">Next Page</a>
+    }
+}
+
+@code {
+
+    public string NextLink { get; set; }
+    public IEnumerable<Message> Messages { get; private set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var messagesPagingData = await emailClient.GetUserMessagesPage(NextLink);
+        Messages = messagesPagingData.Messages;
+        NextLink = messagesPagingData.NextLink;
+    }
+}

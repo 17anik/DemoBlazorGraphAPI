@@ -1,6 +1,6 @@
-# .NET v6.0 Blazor Server app connected to Microsoft Graph. Used Microsoft Azure Active Directory to register Application.
+# .NET v7.0 Blazor Server app connected to Microsoft Graph. Used Microsoft Azure Active Directory to register Application.
 
-This is a template for a Blazor app built using .NET v7.0 that connects to Microsoft Graph.
+This is a template for a Blazor app built using .NET v7.0 that connects to Microsoft Graph. This apps hows calendar events for one week and Email messages.
 
 ## Minimal Path to Awesome 🚀
 

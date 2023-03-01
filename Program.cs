@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Graph = Microsoft.Graph;
-using DemoBlazorGraphAPI.Data;
 using DemoBlazorGraphAPI.Graph;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,10 +33,8 @@ builder.Services.AddServerSideBlazor()
     .AddMicrosoftIdentityConsentHandler();
 
 
-builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddScoped<GraphCalendarClient>();
 builder.Services.AddScoped<GraphEmailClient>();
-builder.Services.AddScoped<GraphFilesClient>();
 builder.Services.AddScoped<GraphProfileClient>();
 
 var app = builder.Build();

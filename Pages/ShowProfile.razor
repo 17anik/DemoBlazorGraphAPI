@@ -1,40 +1,40 @@
-﻿@page "/showprofile"
-
+﻿
 @using Microsoft.Identity.Web
 @using Microsoft.Graph
-@inject Microsoft.Graph.GraphServiceClient GraphServiceClient
+@using DemoBlazorGraphAPI.Graph
+@using System.Net.Http.Headers
+
+@inject GraphProfileClient profileClient;
+@inject ITokenAcquisition _tokenAcquisition;
 @inject MicrosoftIdentityConsentAndConditionalAccessHandler ConsentHandler
 
-<h1>Me</h1>
-
-<p>This component demonstrates fetching data from a service.</p>
-
-@if (user == null)
+@if (UserDisplayName == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <table class="table table-striped table-condensed" style="font-family: monospace">
-        <tr>
-            <th>Property</th>
-            <th>Value</th>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td>@user.DisplayName</td>
-        </tr>
-    </table>
+    <h4>
+        @if (UserPhoto != null)
+        {
+            <img src="data:image/jpeg;base64, UserPhoto" class="user-photo nav-profile-photo rounded-circle align-self-center mr-2" />
+        }
+        Welcome @UserDisplayName!
+    </h4>
 }
 
 @code {
-    User? user;
+
+    public string UserDisplayName { get; private set; } = "";
+    public string UserPhoto { get; private set; }
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            user = await GraphServiceClient.Me.Request().GetAsync();
+            var user = await profileClient.GetUserProfile();
+            UserDisplayName = user.DisplayName.Split(' ')[0];
+            UserPhoto = await profileClient.GetUserProfileImage();
         }
         catch (Exception ex)
         {

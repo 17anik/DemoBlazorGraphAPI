@@ -1,9 +1,28 @@
 ﻿@page "/"
 
+@using Microsoft.Graph;
+@using Microsoft.Identity.Web;
+
+@inject MicrosoftIdentityConsentAndConditionalAccessHandler consenthandler
+@inject GraphServiceClient graphServiceClient
+
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<ShowProfile/>
 
-Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@code{
+    User? user;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            user = await graphServiceClient.Me.Request().GetAsync();
+        }
+        catch (Exception ex)
+        {
+            consenthandler.HandleException(ex);
+        }
+    }
+}
