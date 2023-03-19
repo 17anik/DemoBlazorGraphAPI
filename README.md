@@ -68,3 +68,6 @@ Make note of the **secret's value** as you'll use it in the next step. Also, nav
   ```dotnetcli
   dotnet run
   ```
+  
+  
+  [![Hack Together: Microsoft Graph and .NET](https://img.shields.io/badge/Microsoft%20-Hack--Together-orange?style=for-the-badge&logo=microsoft)](https://github.com/microsoft/hack-together)
